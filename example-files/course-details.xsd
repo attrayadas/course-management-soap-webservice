@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://attraya.com/courses"
+	xmlns:tns="http://attraya.com/courses" elementFormDefault="qualified">
+
+	<element name="GetCourseDetailsRequest">
+		<complexType>
+			<sequence>
+				<element name="id" type="integer"></element>
+			</sequence>
+		</complexType>
+	</element>
+
+</schema>
+
+
+<!-- <?xml version="1.0" encoding="UTF-8"?> <GetCourseDetailsRequest xmlns="http://attraya.com/courses"> 
+	<id>123</id> </GetCourseDetailsRequest> -->
+	
+<!-- If we need element inside element we define them underb <complexType> -->

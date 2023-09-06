@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GetCourseDetailsRequest xmlns="http://attraya.com/courses">
-	<id>123</id>
+<GetCourseDetailsRequest
+	xmlns="http://attraya.com/courses"
+	xsi:schemaLocation="http://attraya.com/courses course-details.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<id>12</id>
 </GetCourseDetailsRequest>
