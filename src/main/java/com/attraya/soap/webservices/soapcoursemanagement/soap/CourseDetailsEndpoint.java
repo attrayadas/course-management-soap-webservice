@@ -14,8 +14,8 @@ public class CourseDetailsEndpoint {
 	// input - GetCourseDetailsRequest
 	// output - GetCourseDetailsResponse
 
-	// http://attraya.com/courses
-	// GetCourseDetailsRequest
+	// namespace - http://attraya.com/courses
+	// name - GetCourseDetailsRequest
 
 	@PayloadRoot(namespace = "http://attraya.com/courses", localPart = "GetCourseDetailsRequest")
 	@ResponsePayload // to convert the response to XML
