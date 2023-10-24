@@ -38,6 +38,15 @@ public class CourseDetailsEndpoint {
 		List<Course> courses = service.findAll();
 		return mapAllCourseDetails(courses);
 	}
+
+	@PayloadRoot(namespace = "http://attraya.com/courses", localPart = "DeleteCourseDetailsRequest")
+	@ResponsePayload // to convert the response to XML
+	public DeleteCourseDetailsResponse deleteCourseDetailsRequest(@RequestPayload DeleteCourseDetailsRequest request) {
+		int status = service.deleteById(request.getId());
+		DeleteCourseDetailsResponse response=new DeleteCourseDetailsResponse();
+		response.setStatus(status);
+		return response;
+	}
 	private GetCourseDetailsResponse mapCourseDetails(Course course){
 		GetCourseDetailsResponse response = new GetCourseDetailsResponse();
 		response.setCourseDetails(mapCourse(course));
