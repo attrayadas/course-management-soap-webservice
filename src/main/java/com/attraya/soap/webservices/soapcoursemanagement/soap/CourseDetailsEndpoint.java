@@ -1,6 +1,7 @@
 package com.attraya.soap.webservices.soapcoursemanagement.soap;
 
 import com.attraya.soap.webservices.soapcoursemanagement.soap.bean.Course;
+import com.attraya.soap.webservices.soapcoursemanagement.soap.exception.CourseNotFoundException;
 import com.attraya.soap.webservices.soapcoursemanagement.soap.service.CourseDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
@@ -29,6 +30,8 @@ public class CourseDetailsEndpoint {
 	@ResponsePayload // to convert the response to XML
 	public GetCourseDetailsResponse processCourseDetailsRequest(@RequestPayload GetCourseDetailsRequest request) {
 		Course course = service.findById(request.getId());
+		if(course==null)
+			throw new CourseNotFoundException("Invalid Course Id "+request.getId());
 		return mapCourseDetails(course);
 	}
 
@@ -42,11 +45,18 @@ public class CourseDetailsEndpoint {
 	@PayloadRoot(namespace = "http://attraya.com/courses", localPart = "DeleteCourseDetailsRequest")
 	@ResponsePayload // to convert the response to XML
 	public DeleteCourseDetailsResponse deleteCourseDetailsRequest(@RequestPayload DeleteCourseDetailsRequest request) {
-		int status = service.deleteById(request.getId());
+		CourseDetailsService.Status status = service.deleteById(request.getId());
 		DeleteCourseDetailsResponse response=new DeleteCourseDetailsResponse();
-		response.setStatus(status);
+		response.setStatus(mapStatus(status));
 		return response;
 	}
+
+	private Status mapStatus(CourseDetailsService.Status status) {
+		if(status== CourseDetailsService.Status.FAILURE)
+			return Status.FAILURE;
+		return Status.SUCCESS;
+	}
+
 	private GetCourseDetailsResponse mapCourseDetails(Course course){
 		GetCourseDetailsResponse response = new GetCourseDetailsResponse();
 		response.setCourseDetails(mapCourse(course));
